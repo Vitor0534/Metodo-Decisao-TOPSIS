@@ -1,6 +1,7 @@
 import numpy as np
 import TOPSIS_Utils
 from collections import OrderedDict
+import Header
 
 def normalize_vector_by_sum(vector):
     """ Objetivo    : Realiza a normalização do vetor de pesos pelo seu maior valor
@@ -103,24 +104,19 @@ def order_by_proximity(CCI):
     """ Objetivo    : Ordenar a distância relativa CCi da matriz por proximidade
         Parâmetro(s): CCI       -> vetor com as distâncias relativas
         Retorno(s)  : obj temp  -> vetor com as distâncias relativas ordenado
-    """
+    """    
+    return sorted(CCI.items(), key=lambda x: x[1], reverse=True)
 
-    # Cria um dicionário para mostrar a melhor alternativa
-    # a chave do dicionário é o número da alternativa
-    cci_dict = dict(zip(np.arange(1, len(CCI) + 1, 1), CCI))
-    return sorted(cci_dict.items(), key=lambda x: x[1], reverse=True)
-
-def TOPSIS_Method(Matriz_AC, W):
+def TOPSIS_Method(Matriz_AC, W, alternative_names, criterios_names, decimal_places):
     """ Objetivo    : Aplicar o método TOPSIS em uma matriz de critérios e seu vetor de pesos
         Parâmetro(s): Matriz_AC -> matriz de critério
         Retorno(s)  : W         -> vetor de pesos
     """
 
-    decimal_places = 4
     strReport = ""
     util = TOPSIS_Utils.TopsisUtils(decimal_places)
-
-    strReport += 'Método TOPSIS\n\n'
+    strReport += Header.getHeader()
+    strReport += '\n\n'
     strReport += f'Matriz de critérios e alternativas de entrada\n{util.format_matrix_to_string(Matriz_AC)}\n' 
     
     # Passo 1: normalizar a matriz de critérios e alternativas e o vetor W
@@ -147,19 +143,26 @@ def TOPSIS_Method(Matriz_AC, W):
     # Passo 3: Determinar a Proximidade relativa
     strReport += '--------------------- Passo 3 ---------------------\n'
     CCI = relative_proximity(Matriz_D)
+
+
     strReport += f'Vetor com as distâncias relativas\n{util.format_vector_to_string(CCI)}\n\n' 
 
     #Passo 4: ordenar da maior para a menor proximidade relativa
     strReport += '--------------------- Passo 4 ---------------------\n'
+
+    # Cria um dicionário para mostrar a melhor alternativa
+    # a chave do dicionário é o número da alternativa
+    CCI = dict(zip(alternative_names, CCI))
+
     Rank = order_by_proximity(CCI)
 
     out = ""
     for i in range(0,len(Rank),1):
-        out += f'{str(i+1)}º: A{Rank[i][0]} -> {Rank[i][1]:.{decimal_places}f}\n'
+        out += f'{str(i+1)}º: {Rank[i][0]} -> {Rank[i][1]:.{decimal_places}f}\n'
 
     strReport += f'Ordenação das alternativas\n{out}\n' 
 
-    strReport += f'Portanto, a melhor alternativa é: A{Rank[0][0]}\n' 
+    strReport += f'Portanto, a melhor alternativa é: {Rank[0][0]}\n' 
 
     return strReport
 #***End Function *****************#           
