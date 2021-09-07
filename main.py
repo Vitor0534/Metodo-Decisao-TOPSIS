@@ -17,90 +17,67 @@ Uso     : Para utilizar o código acesse o método main e defina as variaveis
 
 import TOPSIS_Method as Topsis
 import numpy as np
-import csv
-import pandas
+from Report_Utils import ReportUtils
+from os import system, name
+import Header
 
-def print_report(path, str_to_print):
-    """ Objetivo    : Imprimir o relatório do método
-        Parâmetro(s): path          -> caminho para salvar o arquivo
-                      str_to_print  -> report a ser salvo
-        Retorno(s)  : 
+def clear():
+    """ Objetivo    : Limpar o cmd de execução
+                    Parâmetro(s): 
+                    Retorno(s)  :
     """
-    with open(path, "w") as file:
-        file.write(str_to_print)
-        file.close()
+    # Windows
+    if name == 'nt':
+        _ = system('cls')
+  
+    # Mac e Linu
+    else:
+        _ = system('clear')
 
-def convert_Matrix_to_Int(matrix):
-    return np.array(matrix).astype(int)
-    
-def load_Data(Path):
-    """ Objetivo    : Ler arquivo csv e extrair matriz de alternativas/critérios
-        Parâmetro(s): path          -> caminho para ler aquivo
-        Retorno(s)  : [alternative_names, criterios_names]: vetores dos nomes das alternativas e critérios
-                      [Matrix_AC]: Matriz de valores de alternativas/critérios
-                      [W]: vetor de pesos
+
+def menu(): 
+    """ Objetivo    : menu de interação com o usuário
+                    Parâmetro(s): 
+                    Retorno(s)  :
     """
-    alternative_names = []
-    criterios_names = []
-    Matrix_AC = []
-    W = []
+    decimal_places = 3               # Informe a quantidade de casas decimais a serem mostradas no relatorio
+    reportName = '/TOPSISRport.txt'  # Informe o nome do relatório a ser salvo ao final da execução
+                                     # No nome do arquivo colocar /NomeArquivo.extensão
+    rpUtil = ReportUtils(reportName = reportName)
 
-    with open(Path, newline='') as table:
-        reader = csv.reader(table)
-        criterios_names = next(reader)[0].split(';')
-        for row in reader:
-            for number in row:
-                strSp = np.array(number.split(';'))
-                if(strSp[0]!='W'):
-                    alternative_names.append(strSp[0])
-                    Matrix_AC.append(strSp[1:])
-                else:
-                    W.append(strSp[1:])
+    clear()
 
-    Matrix_AC = convert_Matrix_to_Int(Matrix_AC)
-    W = convert_Matrix_to_Int(W)
+    print(Header.getHeader())    
+    print('')
+    print('Selecione o arquivo com extensão .csv que contém os dados')
+    print('Pressione qualquer tecla para continuar...')
+    input()
 
-    print(alternative_names)
-    print(criterios_names)
-    print(np.array(Matrix_AC))
-    print(W)
-    return [alternative_names, criterios_names, Matrix_AC,W]
+    clear()
 
+    if rpUtil.openFileExplorer():
 
-def code_V1():
-    qtd_Rows = 3
-    qtd_Colums = 3
-    
-    Matriz_AC = np.zeros((qtd_Rows,qtd_Colums),dtype=np.float64)
+        [alternative_names, criterios_names, Matriz_AC,W] = rpUtil.load_Data()
 
-    Matriz_AC = [[2, 5, 3],[5, 4, 3],[4, 3, 3]]
-    W = [2, 3, 5]
+        strPrint = Topsis.TOPSIS_Method(Matriz_AC, W, alternative_names, criterios_names, decimal_places)
 
-    strPrint = Topsis.TOPSIS_Method(Matriz_AC,W)
-    path = "TopsisReport.txt"
+        print(strPrint)
 
-    print(strPrint)
-    print_report(path, strPrint)
+        print('Selecione o diretório em que o relatório será salvo:')
+        print('Pressione qualquer tecla para continuar...')
+        input()
 
-
-def code_V2():
-    [alternative_names, criterios_names, Matriz_AC,W] = load_Data("In-data.csv")
-
-    strPrint = Topsis.TOPSIS_Method(Matriz_AC,W)
-    path = "TopsisReport.txt"
-
-    print(strPrint)
-    print_report(path, strPrint)
+        if rpUtil.openDirectoryExplorer():
+            rpUtil.print_report(strPrint)
+        else: 
+            print('Nenhum diretório selecionado')
+    else:
+        print('Nenhum arquivo selecionado!')            
 
 #*********Place to call functions **************
 
 def main():
-
-    #Regra de entrada de dados V1.0
-    #code_V1()
-
-    #Regra de entrada de dados V2.0
-    code_V2()
+    menu()
     
 
    
