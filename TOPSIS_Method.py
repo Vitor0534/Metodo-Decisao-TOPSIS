@@ -19,7 +19,7 @@ def normalize_matrix_by_bigger_N(Matrix):
     """
 
     # Pega o maior valor da coluna e divide os elementos da coluna por ele
-    big_number = max(max(Matrix))
+    big_number = (max(max(Matrix)))
     for i in range(0,len(Matrix),1):
         
         for j in range(0,len(Matrix[0]),1):
