@@ -41,7 +41,7 @@ def menu():
                     Retorno(s)  :
     """
     decimal_places = 3               # Informe a quantidade de casas decimais a serem mostradas no relatorio
-    reportName = '/TOPSISRport.txt'  # Informe o nome do relatório a ser salvo ao final da execução
+    reportName = "\TOPSISRport-0.txt"  # Informe o nome do relatório a ser salvo ao final da execução
                                      # No nome do arquivo colocar /NomeArquivo.extensão
     rpUtil = ReportUtils(reportName = reportName)
 
