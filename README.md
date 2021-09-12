@@ -1,4 +1,10 @@
 # Metodo-Decisao-TOPSIS
+
+Autores: 
+- Lucas Macedo da Silva  (git-link: )
+- Vitor de Almeida Silva
+
+
 O presente repositório contem a implementação do método de decisão multicritério TOPSIS
 
 Para executar o algoritmo instale o python 3.8 em seu computador e execute o arquivo de nome main.py
