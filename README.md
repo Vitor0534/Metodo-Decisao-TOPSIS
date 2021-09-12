@@ -1,6 +1,8 @@
 # Metodo-Decisao-TOPSIS
 O presente repositório contem a implementação do método de decisão multicritério TOPSIS
 
+Para executar o algoritmo intale o python 3.8 em seu computador e execute o arquivo de nome main.py
+
 O algorítmo recebe como entrada um arquivo .csv que deve conter a Matriz de decisão e o vetor de pesos, no seguite padrão:
   
   - Coluna 1, nome das alternativas;
