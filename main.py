@@ -40,9 +40,9 @@ def menu():
                     Parâmetro(s): 
                     Retorno(s)  :
     """
-    decimal_places = 3               # Informe a quantidade de casas decimais a serem mostradas no relatorio
+    decimal_places = 3                 # Informe a quantidade de casas decimais a serem mostradas no relatorio
     reportName = "\TOPSISRport-0.txt"  # Informe o nome do relatório a ser salvo ao final da execução
-                                     # No nome do arquivo colocar /NomeArquivo.extensão
+                                       # No nome do arquivo colocar /NomeArquivo.extensão
     rpUtil = ReportUtils(reportName = reportName)
 
     clear()
@@ -63,11 +63,11 @@ def menu():
 
         print(strPrint)
 
-        print('Selecione o diretório em que o relatório será salvo:')
+        print('Selecione o diretório e o nome do arquivo com extensão em que o relatório será salvo:')
         print('Pressione qualquer tecla para continuar...')
         input()
 
-        if rpUtil.openDirectoryExplorer():
+        if rpUtil.openDirectoryExplorerTosaveFile():
             rpUtil.print_report(strPrint)
         else: 
             print('Nenhum diretório selecionado')

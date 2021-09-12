@@ -1,16 +1,18 @@
 import tkinter as tk
 from datetime import datetime
 from tkinter import filedialog
+from tkinter.filedialog import asksaveasfile
 
 class ReportUtils:
 
-    def __init__(self, path = "", reportName = "/TopsisReport.txt") -> None:
+    def __init__(self, path = "", reportName = "", file = None) -> None:
         """ Objetivo    : Construtor da classe ReportUtils
             Parâmetro(s): path          -> caminho arquivo
                           reportName    -> nome do relatório a ser salvo
             Retorno(s)  :
         """
         self.path = path
+        self.file = file
         self.reportName = reportName
 
     def version_Controller_V1(self,var):
@@ -28,6 +30,12 @@ class ReportUtils:
         self.reportName = str(name_report[0]) + '-' + str(name_report[1]) + '.' + str(self.reportName.split('.')[1])
         print(self.reportName)
 
+    def version_Controller(self):
+        """ Objetivo    : Retornar um cabeçalho com a data e hora de geração do relatório
+            Parâmetro(s):
+            Retorno(s)  : obj temp -> string formatada representando o cabeçalho
+        """       
+        return f'---------------------------------------------------------------------------------\nRelatório gerado em {datetime.now().strftime("%d/%m/%Y ás %H:%M:%S")}\n\n'
 
     def print_report(self, str_to_print):
         """ Objetivo    : Imprimir o relatório do método
@@ -35,17 +43,10 @@ class ReportUtils:
                         str_to_print  -> report a ser salvo
             Retorno(s)  : 
         """
-        #try:
-        self.version_Controller_V2(self)
-        with open(f'{self.path}{self.reportName}', 'x') as file:
-            file.write(str_to_print)
-            file.close()
-                
+        if self.file != None:
+           self.file.write(f'{self.version_Controller()}{str_to_print}\n')
+           self.file.close()
 
-        #except:
-            #self.version_Controller(self)
-            #self.print_report(self)
-            
 
     
     def load_Data(self):
@@ -101,15 +102,16 @@ class ReportUtils:
 
         return self.path != ""
     
-    def openDirectoryExplorer(self):
+    def openDirectoryExplorerTosaveFile(self):
         """ Objetivo    : Abrir o explorador de aquivos para o usuário selecionar o diretório em que o report será salvo
             Parâmetro(s): 
             Retorno(s)  : obj temp -> true caso o usuário tenha selecionado o diretório, false caso contrário 
-        """
-        tk.Tk().withdraw()
-        try:
-            self.path = filedialog.askdirectory()
-        except:
-            return False
+        """              
+        root = tk.Tk()
+        root.withdraw()
 
-        return self.path != ""
+        files = [('Text Document', '*.txt')]
+
+        self.file = asksaveasfile(filetypes = files, defaultextension = files, mode='a')
+
+        return self.file != None
