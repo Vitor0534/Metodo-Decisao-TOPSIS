@@ -15,21 +15,7 @@ class ReportUtils:
         self.file = file
         self.reportName = reportName
 
-    def version_Controller_V1(self,var):
-        name_report= self.reportName.split('.')[0].split('-')
-        name_report[1] = int(name_report[1])+1
-        print(name_report)
-        self.reportName = str(name_report[0]) + '-' + str(name_report[1]) + '.' + str(self.reportName.split('.')[1])
-        print(self.reportName)
-        self.print_report(self)
-        
-    def version_Controller_V2(self,var):
-        name_report= self.reportName.split('.')[0].split('-')
-        name_report[1] = datetime.now().strftime("%Y_%m_%d %H:%M:%S:%f")
-        print(name_report)
-        self.reportName = str(name_report[0]) + '-' + str(name_report[1]) + '.' + str(self.reportName.split('.')[1])
-        print(self.reportName)
-
+    
     def version_Controller(self):
         """ Objetivo    : Retornar um cabeçalho com a data e hora de geração do relatório
             Parâmetro(s):

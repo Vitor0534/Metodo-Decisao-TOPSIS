@@ -7,12 +7,11 @@ Objetivo: Implmentar o método de apoio à tomada de decisão multicritério TOP
           Método implementado como parte da avaliação da disciplina de modelos e técnicas de apoio à tomada de decisão multicritério,
           ministrada pela Profª. Drª Nadya Regina Galo 
 
-Uso     : Para utilizar o código acesse o método main e defina as variaveis
-            qtd_Rows    -> se refere ao número de linhas da matriz de alternativas e critérios
-            qtd_Colums  -> se refere ao número de colunas da matriz de alternativas e critérios
-            Matriz_AC   -> informe a matriz de critérios e alternativas
-            W           -> informe o vetor de pesos
-            path        -> informe o caminho para salvar os arquivos
+Uso     : Para utilizar o código acesse o método main e execute o programa
+            1: Selecione um arquivo .csv contendo os dados da Matriz de alternativas
+               e do vetor de pesos, alguns exemplos podem ser encontrados na pasta /in-data;
+            2: Após o retorno do relatório no terminal, clique em qualquer tecla e selecione
+               uma pasta para salvar o relatório, sugerimos salvar em /Reports
 """
 
 import TOPSIS_Method as Topsis
