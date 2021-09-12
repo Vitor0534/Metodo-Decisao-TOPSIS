@@ -21,12 +21,7 @@ Para utilizar o método em um programa, basta baixar o repositório e importar o
 
   -  TOPSIS_Method(Matriz_AC, W, alternative_names, criterios_names, decimal_places)
 
-.
-.
-.
-.
-.
-.
+
 
 ### English --------------------------------------------------------------------------
 
