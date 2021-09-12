@@ -1,7 +1,7 @@
 # Metodo-Decisao-TOPSIS
 
 Autores: 
-- Lucas Macedo da Silva  (git-link: )
+- Lucas Macedo da Silva  (https://github.com/LuckasMacedo2)
 - Vitor de Almeida Silva
 
 
